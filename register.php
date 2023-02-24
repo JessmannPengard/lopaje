@@ -13,7 +13,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="/../../../webapp/Assets/css/login.layout.css">
     <!-- Script -->
-    <script src="/../../../webapp/Assets/js/register.js"></script>
+    <script src="js/register.js"></script>
     <!-- Page title -->
     <title>Jessmann</title>
     <!-- Favicon -->
