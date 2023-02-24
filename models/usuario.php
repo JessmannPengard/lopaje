@@ -18,7 +18,7 @@ class User
 
         // Prepare
         $stm = $this->dbconn->prepare("SELECT * FROM usuarios WHERE 
-                user_name=:username AND user_password=:password");
+                username=:username AND password=:password");
         $stm->bindValue(":username", $userName);
         $stm->bindValue(":password", $pw);
 

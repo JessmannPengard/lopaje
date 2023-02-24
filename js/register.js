@@ -6,7 +6,7 @@ window.onload = function () {
         let cpassw = document.getElementById("c-password").value;
         if (passw != cpassw) {
             e.preventDefault();
-            document.getElementById("error").innerHTML="Password not equal";
+            document.getElementById("error").innerHTML="La contraseña no coincide.";
         }
     }
 }

@@ -1,3 +1,12 @@
+<?php
+session_start();
+if (isset($_SESSION["username"])) {
+    var_dump("Sesión activa: " . $_SESSION["username"]);
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,11 +20,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <!-- Styles -->
-    
+
     <!-- Page title -->
     <title>LOPEICH</title>
     <!-- Favicon -->
-    
+
 </head>
 
 <body>
@@ -24,7 +33,7 @@
         <nav class="nav fixed-top nav-h align-items-center">
             <!-- User menu button -->
             <div class="nav-link left-nav">
-                <a class="text-white" href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
+                <a class="text-black" href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
                     <i class="fa-solid fa-bars fa-xl"></i>
                 </a>
             </div>
@@ -42,9 +51,9 @@
             <!-- User menu -->
             <div class="offcanvas offcanvas-start offcanvas-size-sm" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
                 <?php
-                if (isset($_SESSION["user_name"])) {
+                if (isset($_SESSION["username"])) {
                     echo "<div class='offcanvas-header'>
-                            <h5 class='offcanvas-title' id='offcanvasWithBothOptionsLabel'>" . $_SESSION["user_name"] . "</h5>
+                            <h5 class='offcanvas-title' id='offcanvasWithBothOptionsLabel'>" . $_SESSION["username"] . "</h5>
                             <button type='button' class='btn-close' data-bs-dismiss='offcanvas' aria-label='Close'></button>
                         </div>
                         <div class='offcanvas-body'>
@@ -70,7 +79,7 @@
     <div class="container">
         <!-- Sign in message -->
         <?php
-        if (!isset($_SESSION["user_name"])) {
+        if (!isset($_SESSION["username"])) {
             echo "
                     <p class='login-message'>
                         <a href='login.php' class='a-session'>Accede</a> o 
@@ -81,7 +90,7 @@
         <div class="row">
 
             <!--Contenido-->
-            
+
         </div>
     </div>
 
