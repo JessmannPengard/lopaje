@@ -78,7 +78,7 @@ class User
         // Prepare
         $stm = $this->dbconn->prepare("SELECT username FROM usuarios WHERE id = :id_user");
         $stm->bindValue(":id_user", $id_user);
-        $stm->bindColumn("user_name", $username);
+        $stm->bindColumn("username", $username);
 
         // Execute
         $stm->execute();
@@ -88,5 +88,24 @@ class User
 
         // Return username
         return $username;
+    }
+
+    // Returns username from id_user
+    public function getId($username)
+    {
+        $id = 0;
+        // Prepare
+        $stm = $this->dbconn->prepare("SELECT id FROM usuarios WHERE username = :username");
+        $stm->bindValue(":username", $username);
+        $stm->bindColumn("id", $id);
+
+        // Execute
+        $stm->execute();
+
+        // Get username
+        $stm->fetch();
+
+        // Return username
+        return $id;
     }
 }

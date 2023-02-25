@@ -1,107 +1,89 @@
 <?php
 session_start();
 if (isset($_SESSION["username"])) {
-    var_dump("Sesión activa: " . $_SESSION["username"]);
+    //var_dump("Sesión activa: " . $_SESSION["username"]);
 }
 ?>
 
+<!--Header-->
+<?php
+require_once("./layout/header.php");
+?>
 
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Font Awesome CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Bootstrap CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-    <!-- Styles -->
-
-    <!-- Page title -->
-    <title>LOPEICH</title>
-    <!-- Favicon -->
-
-</head>
-
-<body>
-    <!-- Header -->
-    <header>
-        <nav class="nav fixed-top nav-h align-items-center">
-            <!-- User menu button -->
-            <div class="nav-link left-nav">
-                <a class="text-black" href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
-                    <i class="fa-solid fa-bars fa-xl"></i>
-                </a>
-            </div>
-
-            <!-- Logo -->
-            <div class="nav-link">
-                <a href="#"><img src="" alt="" srcset="" class="logo"></a>
-            </div>
-
-            <!-- Future right menu -->
-            <div class="nav-link">
-
-            </div>
-
-            <!-- User menu -->
-            <div class="offcanvas offcanvas-start offcanvas-size-sm" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
-                <?php
-                if (isset($_SESSION["username"])) {
-                    echo "<div class='offcanvas-header'>
-                            <h5 class='offcanvas-title' id='offcanvasWithBothOptionsLabel'>" . $_SESSION["username"] . "</h5>
-                            <button type='button' class='btn-close' data-bs-dismiss='offcanvas' aria-label='Close'></button>
-                        </div>
-                        <div class='offcanvas-body'>
-                            <a class='btn btn-primary' href='mypictures.php' role='button'><i class='fa-solid fa-gear'></i>  Mis imágenes</a>
-                            <a class='btn btn-primary' href='logout.php' role='button'><i class='fa-solid fa-right-from-bracket'></i>  Logout</a>
-                        </div>";
-                } else {
-                    echo "<div class='offcanvas-header'>
-                            <h5 class='offcanvas-title' id='offcanvasWithBothOptionsLabel'>Opciones de usuario</h5>
-                            <button type='button' class='btn-close' data-bs-dismiss='offcanvas' aria-label='Close'></button>
-                        </div>
-                        <div class='offcanvas-body'>
-                            <a class='btn btn-primary' href='login.php' role='button'>Login</a>
-                            <a class='btn btn-primary' href='register.php' role='button'>Registro</a>
-                        </div>";
-                }
-                ?>
-            </div>
-        </nav>
-    </header>
-
-    <!-- Content -->
-    <div class="container">
-        <!-- Sign in message -->
-        <?php
-        if (!isset($_SESSION["username"])) {
-            echo "
+<!-- Content -->
+<div class="container">
+    <!-- Sign in message -->
+    <?php
+    if (!isset($_SESSION["username"])) {
+        echo "
                     <p class='login-message'>
                         <a href='login.php' class='a-session'>Accede</a> o 
                         <a href='register.php' class='a-session'>Regístrate</a> para poder votar o subir tus imágenes.
                     </p>";
-        }
-        ?>
-        <div class="row">
+    }
+    ?>
 
-            <!--Contenido-->
 
+    <!--Contenido-->
+    <section class="bg-light">
+        <div class="container">
+            <div class="head-gallery">
+                <h2>Galería</h2>
+                <div class="orderby">
+                    <span class="filter-active">Recientes</span><i class="fa-solid fa-arrow-up"></i><i class="fa-solid fa-arrow-down filter-active"></i>
+                    <span>Votos</span><i class="fa-solid fa-arrow-up"></i><i class="fa-solid fa-arrow-down"></i>
+                </div>
+            </div>
+            <div class="row">
+
+                <?php
+                require_once("./models/db.php");
+                require_once("./models/imagen.php");
+                require_once("./models/votos.php");
+                require_once("./models/usuario.php");
+
+                $db = new Database();
+                $imagen = new Imagen($db->getConnection());
+                $voto = new Voto($db->getConnection());
+                $usuario = new User($db->getConnection());
+                $imagenes = $imagen->getAll();
+                foreach ($imagenes as $key => $value) {
+                    $votos = count($voto->getById_Image($value["id"]));
+                    $nombre_usuario = $usuario->getUsername($value["id_usuario"]);
+
+                    echo '<div class="col-md-6 col-lg-4">
+                            <div class="card my-3">
+                                <img src="' . $value["url_imagen"] . '"
+                                    class="card-img-top" alt="thumbnail">
+                                    <p class="author">' . $nombre_usuario . '</p>
+                                <div class="card-body">
+                                    <p><i class="fa-solid fa-heart like"></i> ' . $votos . '</p><a href="#" class="btn btn-primary">Votar</a>
+                                </div>
+                            </div>
+                        </div>';
+                }
+                ?>
+
+            </div>
         </div>
-    </div>
+    </section>
 
-    <footer>
-        <nav class="nav fixed-bottom nav-b align-items-center">
-            <p class="text-white copyright">Copyright &copy;
-                <?php echo date("Y"); ?> · LOPAJE · All Rights Reserved
-            </p>
-        </nav>
-    </footer>
+    <!-- New post button -->
+    <?php
+    if (isset($_SESSION["username"])) {
+        echo "<div class='fab-container'>
+            <div class='button iconbutton'>
+              <a href='upload.php'><i class='fa-solid fa-upload'></i></a>
+            </div>
+          </div";
+    }
+    ?>
 
-</body>
+</div>
 
-</html>
+</div>
+
+<!--Footer-->
+<?php
+require_once("./layout/footer.php");
+?>

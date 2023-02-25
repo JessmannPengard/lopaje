@@ -1,0 +1,193 @@
+.nav-h {
+    background-color: #415F69;
+    display: flex;
+    text-align: center;
+    padding: 5px 0;
+}
+
+.nav-b {
+    background-color: #415F69;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 10px;
+}
+
+.left-nav {
+    text-align: left;
+    padding-left: 20px;
+}
+
+.left-nav a:hover {
+    color: #C64E52;
+    transition: 0.7s;
+}
+
+.left-nav a {
+    text-decoration: none;
+    color: white;
+}
+
+.right-nav {
+    text-align: right;
+    padding-right: 20px;
+}
+
+.right-nav a {
+    text-decoration: none;
+    color: white;
+}
+
+.right-nav a:hover {
+    color: #C64E52;
+    transition: 0.7s;
+}
+
+.logo {
+    height: 80px;
+}
+
+.nav-link {
+    width: 33.33%;
+}
+
+.copyright {
+    font-size: 12px;
+}
+
+.login-message {
+    text-align: center;
+    padding: 10px 0;
+    font-size: 12px;
+}
+
+.error-text {
+    color: #C64E52;
+}
+
+.btn {
+    margin-bottom: 10px;
+    background-color: #415F69;
+    border: none;
+}
+
+.btn:hover {
+    background-color: #C64E52;
+    transition: 0.7s;
+}
+
+.container {
+    margin-top: 120px;
+    margin-bottom: 60px;
+}
+
+.head-gallery {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.orderby {
+    font-size: small;
+    opacity: 0.7;
+}
+
+.orderby span{
+    padding-left: 10px;
+}
+
+.filter-active {
+    color: #C64E52;
+}
+
+.author {
+    color: #415F69;
+    padding: 10px;
+    font-weight: bold;
+
+}
+
+.card-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 15px;
+}
+
+.like {
+    color: #C64E52;
+}
+
+/* Gallery */
+.card-img-top {
+    max-height: 250px;
+    overflow: hidden;
+}
+
+/* Floating + button */
+.fab-container {
+    display: flex;
+    justify-content: end;
+    position: fixed;
+    bottom: 100px;
+    right: 50px;
+    cursor: pointer;
+}
+
+.iconbutton {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    background: #C64E52;
+    box-shadow: 10px 10px 5px #aaaaaa;
+}
+
+.iconbutton i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: white;
+}
+
+.iconbutton a {
+    text-decoration: none;
+}
+
+.button {
+    width: 60px;
+    height: 60px;
+    background: #C64E52;
+}
+
+.button:hover {
+    background-color: red;
+    transition: 0.7s;
+}
+
+/* ------------------- */
+
+/* Offcanvas: user menu */
+.offcanvas-size-xl {
+    --bs-offcanvas-width: min(95vw, 600px) !important;
+}
+
+.offcanvas-size-xxl {
+    --bs-offcanvas-width: min(95vw, 90vw) !important;
+}
+
+.offcanvas-size-md {
+    /* add Responsivenes to default offcanvas */
+    --bs-offcanvas-width: min(95vw, 400px) !important;
+}
+
+.offcanvas-size-sm {
+    --bs-offcanvas-width: min(95vw, 250px) !important;
+}
+
+.offcanvas-body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ------------------- */

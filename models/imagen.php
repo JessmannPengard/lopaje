@@ -12,7 +12,7 @@ class Imagen
     // Get all images
     public function getAll()
     {
-        $stm = $this->dbconn->prepare("SELECT * FROM imagenes");
+        $stm = $this->dbconn->prepare("SELECT * FROM imagenes ORDER BY fecha DESC");
         $stm->execute();
         return $stm->fetchAll();
     }
@@ -20,7 +20,7 @@ class Imagen
     // Get images from user
     public function getById_User($id_user)
     {
-        $stm = $this->dbconn->prepare("SELECT * FROM imagenes WHERE id_isuario=:id_user");
+        $stm = $this->dbconn->prepare("SELECT * FROM imagenes WHERE id_isuario=:id_user ORDER BY fecha DESC");
         $stm->bindValue(":id_user", $id_user);
         $stm->execute();
         return $stm->fetchAll();
