@@ -1,8 +1,6 @@
 <?php
+// Iniciamos sesión
 session_start();
-if (isset($_SESSION["username"])) {
-    // TODO debemos comprobar si hay un usuario logueado para permitir votar o subir imágenes
-}
 
 // Establecer el orden en el que se muestran las imágenes (por defecto 'fecha ASC')
 $orden = isset($_GET["orderby"]) && ($_GET["orderby"] == "fecha" || $_GET["orderby"] == "num_votos") ? $_GET["orderby"] : "fecha";
@@ -27,7 +25,6 @@ require_once("./layout/header.php");
                     </p>";
     }
     ?>
-
 
     <!-- Galería -->
     <section class="bg-light">
