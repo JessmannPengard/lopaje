@@ -1,9 +1,10 @@
 $(document).ready(function () {
+
+    // Cambio de color de la cabecera y los menús
     var posHeader = $('#header').offset().top;
     $(window).scroll(() => {
         var wPos = $(window).scrollTop();
 
-        // Header color transition
         if (wPos > posHeader) {
             $('#header').css('background-color', '#fff');
             $('.nav-link a').css('color', '#415F69');
