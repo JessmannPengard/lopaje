@@ -90,10 +90,6 @@ require_once("./layout/header.php");
     </div>
 </section>
 
-<!-- Librerías necesarias -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 <!-- Script para previsualizar las imágenes -->
 <script src="js/upload.js"></script>
 

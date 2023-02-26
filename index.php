@@ -43,7 +43,7 @@ require_once("./layout/header.php");
                 </div>
             </div>
             <!-- Parte donde se muestran las imágenes -->
-            <div class="row">
+            <div class="row galeria">
                 <?php
                 // Traemos los modelos necesarios
                 require_once("./models/db.php");
@@ -108,6 +108,9 @@ require_once("./layout/header.php");
 </div>
 
 </div>
+
+<!-- Script para el lightbox -->
+<script src="js/index.js"></script>
 
 <!-- Pie de página -->
 <?php
