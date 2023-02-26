@@ -1,0 +1,1 @@
+Esta web permite a los usuarios registrados subir y votar las imágenes que otros usuarios han subido.

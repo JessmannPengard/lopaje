@@ -1,3 +1,5 @@
+<!-- Encabezado de página -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,9 +17,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous"></script>
-    <!-- Styles -->
+    <!-- Mis scripts -->
+    <script src="js/votar.js"></script>
+    <!-- Estilos -->
     <link rel="stylesheet" href="css/style.css">
-    <!-- Page title -->
+    <!-- Título de la página -->
     <title>LOPEICH</title>
     <!-- Favicon -->
 
@@ -27,7 +31,8 @@
     <!-- Header -->
     <header>
         <nav class="nav fixed-top nav-h align-items-center">
-            <!-- User menu button -->
+            <!-- Botón del menú de usuario -->
+            <!-- Muestra el offcanvas -->
             <div class="nav-link left-nav">
                 <a class="menu" href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions"
                     aria-controls="offcanvasWithBothOptions">
@@ -40,7 +45,7 @@
                 <a href="index.php"><img src="img/logo.jpeg" alt="" srcset="" class="logo"></a>
             </div>
 
-            <!-- Future right menu -->
+            <!-- Nombre del usuario si está logueado -->
             <div class="nav-link right-nav">
                 <?php
                 if (isset($_SESSION["username"])) {
@@ -49,11 +54,12 @@
                 ?>
             </div>
 
-            <!-- User menu -->
+            <!-- Menú de usuario (offcanvas), se muestra al pulsar el botón de menú -->
             <div class="offcanvas offcanvas-start offcanvas-size-sm" data-bs-scroll="true" tabindex="-1"
                 id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
                 <?php
                 if (isset($_SESSION["username"])) {
+                    // Menú si está logueado
                     echo "<div class='offcanvas-header'>
                             <h5 class='offcanvas-title' id='offcanvasWithBothOptionsLabel'>" . $_SESSION["username"] . "</h5>
                             <button type='button' class='btn-close' data-bs-dismiss='offcanvas' aria-label='Close'></button>
@@ -63,6 +69,7 @@
                             <a class='btn btn-primary' href='logout.php' role='button'><i class='fa-solid fa-right-from-bracket'></i>  Logout</a>
                         </div>";
                 } else {
+                    // Menú si no está logueado
                     echo "<div class='offcanvas-header'>
                             <h5 class='offcanvas-title' id='offcanvasWithBothOptionsLabel'>Opciones de usuario</h5>
                             <button type='button' class='btn-close' data-bs-dismiss='offcanvas' aria-label='Close'></button>

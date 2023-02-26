@@ -1,5 +1,6 @@
 <?php
 
+// Clase para gestionar los usuarios en la tabla "usuarios"
 class User
 {
     protected $dbconn;
@@ -10,10 +11,10 @@ class User
         $this->dbconn = $conn;
     }
 
-    // Checks for valid username/password combination and return id_user (0 if not found)
+    // Comprueba que la combinación usuario/contraseña sea correcta
     public function login($userName, $userPassword)
     {
-        // Encrypt password
+        // Encriptar contraseña
         $pw = md5($userPassword);
 
         // Prepare
@@ -25,23 +26,24 @@ class User
         // Execute
         $stm->execute();
 
-        // True if found, else False
+        // Devolver resultado
         return $stm->fetch();
     }
 
-    // Register new user
+    // Registrar nuevo usuario
     public function register($userName, $userPassword)
     {
         $result = array();
 
-        // Check for existing username
+        // Comprueba que el nombre de usuario no exista ya en la base de datos mediante la función existsUsername (declarada más abajo)
         if ($this->existUsername($userName)) {
+            // Si existe devolvemos $result=false y el mensaje a mostrar $result="Usuario ya existe"
             $result["result"] = false;
             $result["msg"] = "El nombre de usuario ya existe.";
             return $result;
         }
 
-        // Encrypt password
+        // Encriptar password
         $pw = md5($userPassword);
 
         // Prepare
@@ -53,11 +55,13 @@ class User
 
         // Execute
         $stm->execute();
+
+        // Registrado con éxito
         $result["result"] = true;
         return $result;
     }
 
-    // Checks if the username already exists
+    // Comprueba si un nombre de usuario ya existe en la base de datos
     public function existUsername($userName)
     {
         // Prepare
@@ -67,11 +71,11 @@ class User
         // Execute
         $stm->execute();
 
-        // True if username already exists, else False
+        // Devolvemos el resultado
         return $stm->fetch();
     }
 
-    // Returns username from id_user
+    // Obtiene el nombre de usuario a partir de su id
     public function getUsername($id_user)
     {
         $username = "";
@@ -86,11 +90,11 @@ class User
         // Get username
         $stm->fetch();
 
-        // Return username
+        // Devolvemos el nombre de usuario
         return $username;
     }
 
-    // Returns username from id_user
+    // Obtiene el id de un usuario a partir de su nombre de usuario
     public function getId($username)
     {
         $id = 0;
@@ -105,7 +109,7 @@ class User
         // Get username
         $stm->fetch();
 
-        // Return username
+        // Devolvemos el id
         return $id;
     }
 }

@@ -1,39 +1,48 @@
 <?php
 
+// Importamos los modelos necesarios
 require("./models/db.php");
 require("./models/usuario.php");
 
+// Inicializamos la variable que usaremos para mostrar mensajes en caso de algún error
 $msg = "";
+
+// Si nos están enviando el formulario...
 if (isset($_POST["user"])) {
+    // Obtenemos el nombre de usuario y contraseña
     $usuario = $_POST["user"];
     $password = $_POST["password"];
 
+    // Nos conectamos a la base de datos
     $db = new Database();
     $user = new User($db->getConnection());
 
+    // Y llamamos al método register para registrar un nuevo usuario
     $registro = $user->register($usuario, $password);
+    // Si el resultado es positivo
     if ($registro["result"]) {
-        // Registro correcto
+        // Registro correcto, redirigimos a la página de login para que el usuario pueda iniciar sesión
         header("Location: login.php");
     } else {
-        //Login incorrecto
+        // Registro no realizado, guardamos el mensaje de error a mostrar más abajo
         $msg = $registro["msg"];
     }
 }
 
 ?>
 
-<!--Header-->
+<!-- Cabecera de página -->
 <?php
 require_once("./layout/header.php");
 ?>
 
-<!-- Content -->
+<!-- Contenido de la página -->
 <div class="container">
     <div class="row">
-        <!-- Main content -->
         <section class="content">
+            <!-- Título del formulario -->
             <h1 class="form-title">Crear cuenta</h1>
+            <!-- Formulario de registro -->
             <form action="" method="post" class="login-form" id="registerForm">
                 <div class="mb-3">
                     <label for="user" class="form-label">Nombre de usuario</label>
@@ -50,26 +59,27 @@ require_once("./layout/header.php");
                     <input type="password" name="c_password" id="c-password" class="form-control" required
                         placeholder="Repetir password">
                 </div>
-                <!-- Error message -->
+                <!-- Mostramos el mensaje de error, si lo hubiera, si no estaría vacío "" -->
                 <div class="mb-3">
                     <p class="error-text" id="error"></p>
                 </div>
                 <div class="mb-3">
                     <button type="submit" value="Login" class="btn btn-primary">Registrar</button>
                 </div>
+                <!-- Enlace a la página de inicio de sesión -->
                 <div class="mb-3">
                     <span class="form-text">¿Ya estás registrad@?</span><a href="login.php" class="form-link"> Inicia
                         sesión</a>
                 </div>
             </form>
         </section>
-        <!-- /.content -->
     </div>
 </div>
 
+<!-- Script que comprueba que el cambo Repetir password coincida con el campo Password -->
 <script src="js/register.js"></script>
 
-<!--Footer-->
+<!-- Pie de página -->
 <?php
 require_once("./layout/footer.php");
 ?>

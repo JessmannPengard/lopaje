@@ -1,55 +1,71 @@
 <?php
-
+// Importamos los modelos necesarios
 require_once("./models/db.php");
 require_once("./models/usuario.php");
 require_once("./models/imagen.php");
 
+// Iniciamos sesión y comprobamos si el usuario está logueado, en caso contrario lo redirigimos al index.php
 session_start();
 if (!isset($_SESSION["username"])) {
     header("Location: login.php");
 }
 
+// Establecemos la ruta en la que guardamos las imágenes subidas por los usuarios
 $directorio_subida = 'upload/';
+
+// Inicializamos la variable que guardará el mensaje en caso de posibles errores
 $msg = "";
+
+// Si nos han enviado una imagen:
 if (isset($_POST["file"])) {
-    // verificar si se subió un archivo y si no hay errores
+    // Verificamos si se subió un archivo y si no hay errores
     if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
-        // verificar el tipo de archivo
+        // Verificamos el tipo de archivo (aquí establecemos los tipos de archivos permitidos)
         $tipos_permitidos = array('image/jpeg', 'image/png');
         if (in_array($_FILES['imagen']['type'], $tipos_permitidos)) {
-            // verificar el tamaño del archivo
+            // Verificamos el tamaño del archivo, aquí establecemos el tamaño máximo de archivo permitido
             $tamano_maximo = 5 * 1024 * 1024; // 5MB
             if ($_FILES['imagen']['size'] <= $tamano_maximo) {
-                // renombrar el archivo para evitar sobrescribir archivos existentes
+                // Renombramos el archivo para evitar sobrescribir archivos existentes mediante la función uniqid
                 $nombre_archivo = uniqid('imagen_', true) . '.' . pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION);
-                // mover el archivo a la carpeta de destino con el nuevo nombre de archivo
+                // Movemos el archivo a la carpeta de destino que hemos designado ($directorio_subida) con el nuevo nombre de archivo
                 if (move_uploaded_file($_FILES['imagen']['tmp_name'], $directorio_subida . $nombre_archivo)) {
                     // El archivo se subió correctamente
+                    // Guardamos en la base de datos la información de la imagen
+                    // Creamos la conexión
                     $db = new Database();
+                    // Obtenemos los id's de usuario e imagen
                     $usuario = new User($db->getConnection());
                     $imagen = new Imagen($db->getConnection());
+                    // Y los guardamos en la base de datos junto con la ruta del archivo que se acaba de subir
                     $imagen->upload($usuario->getId($_SESSION["username"]), $directorio_subida . $nombre_archivo);
+                    // Finalmente redirigimos al index.php
                     header("Location: index.php");
                 } else {
+                    // Error al mover el archivo
                     $msg = "Hubo un error al mover el archivo";
                 }
             } else {
+                // Archivo demasiado grande
                 $msg = "El archivo es demasiado grande (tamaño máximo permitido: " . $tamano_maximo / 1024 / 1024 . "MB)";
             }
         } else {
+            // Tipo de archivo no permitido
             $msg = "El tipo de archivo no está permitido";
         }
     } else {
+        // Error al subir el archivo
         $msg = "Hubo un error al subir el archivo";
     }
 }
 ?>
 
-<!--Header-->
+<!-- Cabecera de página -->
 <?php
 require_once("./layout/header.php");
 ?>
 
+<!-- Contenido -->
 <section class="bg-light">
     <div class="container">
         <h2>Sube tu imagen</h2>
@@ -63,7 +79,7 @@ require_once("./layout/header.php");
                 <img id="previsualizacion" src="#" alt="Previsualización de la imagen"
                     style="max-width: 100%; height: auto;">
             </div>
-            <!-- Error message -->
+            <!-- Mensaje de error si lo hubiese -->
             <div class="mb-3">
                 <p class='error-text'>
                     <?php echo $msg; ?>
@@ -73,25 +89,15 @@ require_once("./layout/header.php");
         </form>
     </div>
 </section>
+
+<!-- Librerías necesarias -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script>
-    $(document).ready(function () {
-        // cuando se cambia el valor del campo de imagen, actualizar la previsualización
-        $('#imagen').on('change', function () {
-            var archivo = $(this)[0].files[0];
-            if (archivo) {
-                var lector = new FileReader();
-                lector.onload = function (e) {
-                    $('#previsualizacion').attr('src', e.target.result);
-                }
-                lector.readAsDataURL(archivo);
-            }
-        });
-    });
-</script>
 
-<!--Footer-->
+<!-- Script para previsualizar las imágenes -->
+<script src="js/upload.js"></script>
+
+<!-- Pie de página -->
 <?php
 require_once("./layout/footer.php");
 ?>

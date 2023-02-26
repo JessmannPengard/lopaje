@@ -78,7 +78,7 @@
 
 .container {
     margin-top: 120px;
-    margin-bottom: 60px;
+    margin-bottom: 140px;
 }
 
 .head-gallery {
@@ -92,12 +92,18 @@
     opacity: 0.7;
 }
 
-.orderby span{
+.orderby span {
     padding-left: 10px;
 }
 
+.orderby a {
+    text-decoration: none;
+    color: #415F69;
+    padding-right: 5px;
+}
+
 .filter-active {
-    color: #C64E52;
+    color: #C64E52 !important;
 }
 
 .author {
@@ -118,6 +124,15 @@
     color: #C64E52;
 }
 
+.btn-like {
+    background-color: #C64E52;
+}
+
+.btn-like:hover {
+    background-color: #415F69;
+    transition: 0.7s;
+}
+
 /* Gallery */
 .card-img-top {
     max-height: 250px;
@@ -127,7 +142,7 @@
 /* Floating + button */
 .fab-container {
     display: flex;
-    justify-content: end;
+    justify-content: right;
     position: fixed;
     bottom: 100px;
     right: 50px;
