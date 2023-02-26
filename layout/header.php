@@ -20,6 +20,7 @@
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous"></script>
     <!-- Mis scripts -->
+    <script src="js/header.js"></script>
     <script src="js/votar.js"></script>
     <!-- Estilos -->
     <link rel="stylesheet" href="css/style.css">
@@ -32,7 +33,7 @@
 <body class="bg-light">
     <!-- Header -->
     <header>
-        <nav class="nav fixed-top nav-h align-items-center">
+        <nav class="nav fixed-top nav-h align-items-center" id="header">
             <!-- Botón del menú de usuario -->
             <!-- Muestra el offcanvas -->
             <div class="nav-link left-nav">

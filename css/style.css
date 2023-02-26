@@ -1,3 +1,10 @@
+#header {
+    opacity: .9;
+    color: #fff;
+    background-color: #273848;
+    transition: background-color .5s ease-in-out;
+}
+
 .nav-h {
     background-color: #415F69;
     display: flex;
@@ -137,8 +144,67 @@
 .card-img-top {
     max-height: 250px;
     overflow: hidden;
+}
+
+.image-container {
+    position: relative;
+    display: inline-block;
+}
+
+.image-container:hover .image-overlay:hover {
+    opacity: 1;
     cursor: pointer;
 }
+
+.image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    background: rgba(0, 0, 0, 0.5) url('../img/lupa.png') no-repeat center;
+    background-size: 64px 64px;
+    background-position: center center;
+}
+
+/* Lightbox */
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.lightbox img {
+    max-width: 80%;
+    max-height: 80%;
+    object-fit: contain;
+}
+
+.cerrar {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: #C64E52;
+    font-size: 2rem;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.cerrar:hover {
+    color: red;
+    transition: 0.7s;
+}
+
+/* ---------*/
 
 /* Botón flotante */
 .fab-container {
@@ -207,40 +273,3 @@
 }
 
 /* ------------------- */
-
-/* Lightbox */
-.lightbox {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-}
-
-.lightbox img {
-    max-width: 80%;
-    max-height: 80%;
-    object-fit: contain;
-}
-
-.cerrar {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    color:#C64E52;
-    font-size: 2rem;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.cerrar:hover{
-    color: red;
-    transition: 0.7s;
-}
-
-/* ---------*/

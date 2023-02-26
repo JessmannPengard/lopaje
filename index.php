@@ -64,8 +64,11 @@ require_once("./layout/header.php");
                     // Finalmente mostramos la imagen, nombre de usuario que la subió y número de votos que tiene
                     echo '<div class="col-md-6 col-lg-4">
                             <div class="card my-3">
-                                <img src="' . $value["url_imagen"] . '"
-                                    class="card-img-top" alt="thumbnail">
+                                <div class="image-container">
+                                    <img src="' . $value["url_imagen"] . '"
+                                        class="card-img-top" alt="thumbnail">
+                                    <div class="image-overlay"></div>
+                                </div>
                                     <p class="author">' . $nombre_usuario . '</p>
                                 <div class="card-body">
                                     <p><i class="fa-solid fa-heart like"></i> ' . $value["num_votos"] . '</p>';
@@ -109,7 +112,7 @@ require_once("./layout/header.php");
 
 </div>
 
-<!-- Script para el lightbox -->
+<!-- Script para la galería -->
 <script src="js/index.js"></script>
 
 <!-- Pie de página -->

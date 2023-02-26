@@ -1,7 +1,8 @@
-// Script para mostrar el lightbox al hacer click en las imágenes
 $(document).ready(function () {
-    $('.galeria img').on('click', function () {
-        var rutaImagen = $(this).attr('src');
+
+    // Mostrar el lightbox al hacer click en las imágenes
+    $('.image-container').on('click', function () {
+        var rutaImagen = $(this.querySelector('img')).attr('src');
         var lightbox = '<div class="lightbox">' +
             '<img src="' + rutaImagen + '">' +
             '<i class="fa-solid fa-circle-xmark cerrar"></i>' +
@@ -12,4 +13,6 @@ $(document).ready(function () {
             $('.lightbox').remove();
         });
     });
+
+
 });
