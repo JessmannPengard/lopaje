@@ -39,40 +39,38 @@ require_once("./layout/header.php");
 <!-- Contenido de la página -->
 <div class="container">
     <div class="row">
-        <section class="content">
+        <div class="col-md-6 mx-auto">
             <!-- Título del formulario -->
-            <h1 class="form-title">Crear cuenta</h1>
+            <h2>Crear cuenta</h2>
             <!-- Formulario de registro -->
             <form action="" method="post" class="login-form" id="registerForm">
-                <div class="mb-3">
-                    <label for="user" class="form-label">Nombre de usuario</label>
+                <div class="form-group">
+                    <label for="user" class="form-label ">Nombre de usuario</label>
                     <input type="text" name="user" class="form-control" required placeholder="Nombre de usuario"
                         autofocus>
                 </div>
-                <div class="mb-3">
+                <div class="form-group">
                     <label for="password" class="form-label">Password</label>
                     <input type="password" name="password" id="password" class="form-control" required
                         placeholder="Password">
                 </div>
-                <div class="mb-3">
+                <div class="form-group">
                     <label for="c_password" class="form-label">Repetir password</label>
                     <input type="password" name="c_password" id="c-password" class="form-control" required
                         placeholder="Repetir password">
                 </div>
                 <!-- Mostramos el mensaje de error, si lo hubiera, si no estaría vacío "" -->
-                <div class="mb-3">
+                <div class="form-group">
                     <p class="error-text" id="error"></p>
                 </div>
-                <div class="mb-3">
                     <button type="submit" value="Login" class="btn btn-primary">Registrar</button>
-                </div>
                 <!-- Enlace a la página de inicio de sesión -->
-                <div class="mb-3">
+                <div class="form-group">
                     <span class="form-text">¿Ya estás registrad@?</span><a href="login.php" class="form-link"> Inicia
-                        sesión</a>
+                        sesión</a>                  
                 </div>
             </form>
-        </section>
+        </div>
     </div>
 </div>
 

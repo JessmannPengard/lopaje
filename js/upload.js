@@ -8,6 +8,7 @@ $(document).ready(function () {
             var lector = new FileReader();
             lector.onload = function (e) {
                 $('#previsualizacion').attr('src', e.target.result);
+                $('#previsualizarImg').removeClass("d-none")
             }
             lector.readAsDataURL(archivo);
         }

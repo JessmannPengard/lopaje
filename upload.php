@@ -65,30 +65,39 @@ if (isset($_POST["file"])) {
 require_once("./layout/header.php");
 ?>
 
-<!-- Contenido -->
-<section class="bg-light">
-    <div class="container">
-        <h2>Sube tu imagen</h2>
-        <p>PNG o JPEG, tamaño máximo permitido: 5MB</p>
-        <form id="formulario" method="post" enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="imagen">Seleccionar imagen:</label>
-                <input type="file" class="form-control-file" id="imagen" name="imagen" accept="image/png, image/jpeg">
+<!-- Contenido de la página -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <!-- Título del formulario -->
+            <h2>Sube tu imagen</h2>
+            <div>
+                <p>PNG o JPEG, tamaño máximo permitido: 5MB</p>
+                <hr>
             </div>
-            <div class="form-group">
+            <div class="form-group d-none" id="previsualizarImg">
                 <img id="previsualizacion" src="#" alt="Previsualización de la imagen"
                     style="max-width: 100%; height: auto;">
             </div>
-            <!-- Mensaje de error si lo hubiese -->
-            <div class="mb-3">
-                <p class='error-text'>
-                    <?php echo $msg; ?>
-                </p>
-            </div>
-            <button type="submit" name="file" class="btn btn-primary">Subir imagen</button>
-        </form>
+            <form id="formulario" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+
+                    <input type="file" class="form-control-file" id="imagen" name="imagen"
+                        accept="image/png, image/jpeg">
+                </div>
+
+                <!-- Mensaje de error si lo hubiese -->
+                <div class="mb-3">
+                    <p class='error-text'>
+                        <?php echo $msg; ?>
+                    </p>
+                </div>
+                <button type="submit" name="file" class="btn btn-primary">Subir imagen</button>
+            </form>
+        </div>
     </div>
-</section>
+</div>
+
 
 <!-- Script para previsualizar las imágenes -->
 <script src="js/upload.js"></script>
