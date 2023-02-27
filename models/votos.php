@@ -26,11 +26,11 @@ class Voto
         $stm->bindValue(":id_image", $id_image);
         $stm->bindValue(":id_user", $id_user);
         $stm->execute();
-        $result = $stm->fetch();
+        $result = $stm->fetch(PDO::FETCH_ASSOC);
 
         $voted = $result ? true : false;
 
-        // Devuelve verdadero o falso
+        // Devolvemos el resultado
         return $voted;
     }
 

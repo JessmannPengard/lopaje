@@ -50,6 +50,7 @@ require_once("./layout/header.php");
                 require_once("./models/imagen.php");
                 require_once("./models/votos.php");
                 require_once("./models/usuario.php");
+                require_once("./utils/dates.php");
 
                 $db = new Database();
                 $imagen = new Imagen($db->getConnection());
@@ -61,6 +62,10 @@ require_once("./layout/header.php");
                 foreach ($imagenes as $key => $value) {
                     // Obtenemos el nombre se usuario que subió la imagen
                     $nombre_usuario = $usuario->getUsername($value["id_usuario"]);
+                    // Formateamos el intervalo de tiempo a mostrar (desde la fecha de publicación hasta ahora)
+                    $fechaPublicacion = new DateTime($value["fecha"]);
+                    $fechaActual = new DateTime("now");
+                    $fecha = format_interval_dates_short($fechaActual, $fechaPublicacion);
                     // Finalmente mostramos la imagen, nombre de usuario que la subió y número de votos que tiene
                     echo '<div class="col-md-6 col-lg-4">
                             <div class="card my-3">
@@ -69,9 +74,9 @@ require_once("./layout/header.php");
                                         class="card-img-top" alt="thumbnail">
                                     <div class="image-overlay"></div>
                                 </div>
-                                    <p class="author">' . $nombre_usuario . '</p>
+                                    <p class="author">' . $nombre_usuario . '<span class="fecha">· subida hace ' . $fecha . '</span></p>
                                 <div class="card-body">
-                                    <p><i class="fa-solid fa-heart like"></i> ' . $value["num_votos"] . '</p>';
+                                    <p><i class="fa-solid fa-heart like"></i><span class="num-votos">' . $value["num_votos"] . '</span></p>';
                     // Además, si el usuario está logueado mostraremos el botón de votar.
                     // En el botón de votar llamaremos a la función votar() que se encuentra en votar.js, debemos pasarle 3 parámetros:
                     // un id de imagen, un id de usuario y verdadero(votar) o falso(eliminar voto)
@@ -81,9 +86,9 @@ require_once("./layout/header.php");
                         // Si ya la ha votado le pondremos la clase "btn-like" al botón para cambiar su estilo visual
                         $clase_boton = $votada ? "btn-like" : "";
                         // Establecemos el contenido del botón en función de si ya la ha votado o no
-                        $contenido_boton = $votada ? "<i class='fa-solid fa-heart'></i>" : "Votar";
-                        // Y mostramos el botón
-                        echo '<button onclick="votar(' . $value["id"] . ',' . $usuario->getId($_SESSION["username"]) . ',' . !$votada . ')" class="btn btn-primary ' . $clase_boton . '">
+                        $contenido_boton = $votada ? "Votada!" : "Votar";
+                        // Mostramos el botón y le asociamos la función de votar de votar.js
+                        echo '<button onclick="votar(event, ' . $value["id"] . ',' . $usuario->getId($_SESSION["username"]) . ',' . !$votada . ')" class="btn btn-primary ' . $clase_boton . '">
                                         ' . $contenido_boton . '
                                     </button>';
                     }
