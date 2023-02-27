@@ -52,7 +52,7 @@
             <div class="nav-link right-nav">
                 <?php
                 if (isset($_SESSION["username"])) {
-                    echo '<a href="mypictures.php">' . $_SESSION["username"] . '</a>';
+                    echo '<i class="fa-solid fa-user user-icon"></i><a href="mypictures.php">' . $_SESSION["username"] . '</a>';
                 }
                 ?>
             </div>
