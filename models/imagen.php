@@ -31,7 +31,7 @@ class Imagen
     {
         $query = "SELECT imagenes.*, COUNT(votos.id) AS num_votos FROM imagenes 
                     LEFT JOIN votos ON imagenes.id = votos.id_imagen 
-                    WHERE imagenes.id_isuario=:id_user 
+                    WHERE imagenes.id_usuario=:id_user 
                     GROUP BY imagenes.id 
                     ORDER BY " . $orderby . " " . $dir;
 
