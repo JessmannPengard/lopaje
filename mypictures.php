@@ -31,11 +31,11 @@ require_once("./layout/header.php");
         <div class="container">
             <div class="head-gallery">
                 <!-- Título de la galería -->
-                <h2>Galería</h2>
+                <h2>Mis Fotos</h2>
                 <!-- Opciones para ordenar la galería -->
                 <div class="orderby">
-                    <span><a href="index.php?orderby=fecha&dir=<?php echo $op_dir ?>" class="<?php echo $orden == "fecha" ? "filter-active" : ""; ?>">Recientes</a></span><i class="<?php echo $dir == "asc" && $orden == "fecha" ? "fa-solid fa-arrow-up" : "fa-solid fa-arrow-down"; ?>"></i>
-                    <span><a href="index.php?orderby=num_votos&dir=<?php echo $op_dir ?>" class="<?php echo $orden == "num_votos" ? "filter-active" : ""; ?>">Votos</a></span><i class="<?php echo $dir == "asc" && $orden == "num_votos" ? "fa-solid fa-arrow-up" : "fa-solid fa-arrow-down"; ?>"></i>
+                    <span><a href="mypictures.php?orderby=fecha&dir=<?php echo $op_dir ?>" class="<?php echo $orden == "fecha" ? "filter-active" : ""; ?>">Recientes</a></span><i class="<?php echo $dir == "asc" && $orden == "fecha" ? "fa-solid fa-arrow-up" : "fa-solid fa-arrow-down"; ?>"></i>
+                    <span><a href="mypictures.php?orderby=num_votos&dir=<?php echo $op_dir ?>" class="<?php echo $orden == "num_votos" ? "filter-active" : ""; ?>">Votos</a></span><i class="<?php echo $dir == "asc" && $orden == "num_votos" ? "fa-solid fa-arrow-up" : "fa-solid fa-arrow-down"; ?>"></i>
                 </div>
             </div>
             <!-- Parte donde se muestran las imágenes -->
@@ -49,6 +49,10 @@ require_once("./layout/header.php");
                 require_once("./utils/dates.php");
 
                 $db = new Database();
+
+
+
+
                 $imagen = new Imagen($db->getConnection());
                 $usuario = new User($db->getConnection());
                 $voto = new Voto($db->getConnection());
