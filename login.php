@@ -41,36 +41,36 @@ require_once("./layout/header.php");
 <!-- Contenido de la página -->
 <div class="container">
     <div class="row">
-        <section class="content">
+        <div class="col-md-6 mx-auto">
             <!-- Título del formulario -->
-            <h1 class="form-title">Inicia sesión</h1>
+            <h2>Inicia sesión</h2>
             <!-- Formulario de inicio de sesión -->
             <form action="" method="post" class="login-form">
-                <div class="mb-3">
+                <div class="form-group">
                     <label for="user" class="form-label">Nombre de usuario</label>
                     <input type="text" class="form-control" name="user" placeholder="Nombre de usuario" required
                         autofocus>
                 </div>
-                <div class="mb-3">
+                <div class="form-group">
                     <label for="password" class="form-label">Password</label>
                     <input type="password" class="form-control" name="password" placeholder="Password" required>
                 </div>
                 <!-- Mostramos el mensaje de error, si lo hubiera, si no estaría vacío "" -->
-                <div class="mb-3">
+                <div class="form-group">
                     <p class='error-text'>
                         <?php echo $msg; ?>
                     </p>
                 </div>
-                <div class="mb-3">
+                <div class="form-group">
                     <button type="submit" value="Login" class="btn btn-primary">Login</button>
                 </div>
                 <!-- Enlace a la página de registro -->
-                <div class="mb-3">
+                <div class="form-group">
                     <span class="form-text">¿No tienes una cuenta? </span><a href="register.php" class="form-link">
                         Regístrate aquí</a>
                 </div>
             </form>
-        </section>
+        </div>
     </div>
 </div>
 
