@@ -1,8 +1,3 @@
-window.onload = function () {
-    // Al cargar la página nos situamos arriba de todo
-    window.scrollTo(0, 0);
-}
-
 // Función para emitir y borrar los votos llamando a votar.php
 // y pasándole los parámetros necesarios
 function votar(event, id_imagen, id_usuario, valor) {
