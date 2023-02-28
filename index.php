@@ -1,10 +1,11 @@
 <?php
+
 // Iniciamos sesión
 session_start();
 
-// Establecer el orden en el que se muestran las imágenes (por defecto 'fecha ASC')
-$orden = isset($_GET["orderby"]) && ($_GET["orderby"] == "fecha" || $_GET["orderby"] == "num_votos") ? $_GET["orderby"] : "fecha";
-$dir = isset($_GET["dir"]) && ($_GET["dir"] == "asc" || $_GET["dir"] == "desc") ? $_GET["dir"] : "asc";
+// Establecer el orden en el que se muestran las votaciones (por defecto 'fecha_creacion DESC' y se muestran también las finalizadas)
+$orden = isset($_GET["orderby"]) && ($_GET["orderby"] == "fecha_creacion" || $_GET["orderby"] == "fecha_fin") ? $_GET["orderby"] : "fecha_creacion";
+$dir = isset($_GET["dir"]) && ($_GET["dir"] == "asc" || $_GET["dir"] == "desc") ? $_GET["dir"] : "desc";
 $op_dir = $dir == "asc" ? "desc" : "asc";
 ?>
 
@@ -21,79 +22,90 @@ require_once("./layout/header.php");
         echo "
                     <p class='login-message'>
                         <a href='login.php' class='a-session'>Accede</a> o 
-                        <a href='register.php' class='a-session'>Regístrate</a> para poder votar o subir tus imágenes.
+                        <a href='register.php' class='a-session'>Regístrate</a> para poder crear nuevas votaciones, votar o subir tus imágenes.
                     </p>";
     }
     ?>
 
-    <!-- Galería -->
+    <!-- Votaciones -->
     <section class="bg-light">
         <div class="container">
             <div class="head-gallery">
-                <!-- Título de la galería -->
-                <h2>Galería</h2>
-                <!-- Opciones para ordenar la galería -->
+                <!-- Título del apartado de votaciones -->
+                <h2>Votaciones</h2>
+                <!-- Opciones para ordenar las votaciones -->
                 <div class="orderby">
-                    <span><a href="index.php?orderby=fecha&dir=<?php echo $op_dir ?>"
-                            class="<?php echo $orden == "fecha" ? "filter-active" : ""; ?>">Recientes</a></span><i
-                        class="<?php echo $dir == "asc" && $orden == "fecha" ? "fa-solid fa-arrow-up" : "fa-solid fa-arrow-down"; ?>"></i>
-                    <span><a href="index.php?orderby=num_votos&dir=<?php echo $op_dir ?>"
-                            class="<?php echo $orden == "num_votos" ? "filter-active" : ""; ?>">Votos</a></span><i
-                        class="<?php echo $dir == "asc" && $orden == "num_votos" ? "fa-solid fa-arrow-up" : "fa-solid fa-arrow-down"; ?>"></i>
+                    <span>
+                        <a href="index.php?orderby=fecha_creacion&dir=<?php echo $op_dir ?>"
+                            class="<?php echo $orden == "fecha_creacion" ? "filter-active" : ""; ?>">Recientes</a>
+                    </span>
+                    <i
+                        class="<?php echo $dir == "asc" && $orden == "fecha_creacion" ? "fa-solid fa-arrow-up" : "fa-solid fa-arrow-down"; ?>"></i>
+                    <span>
+                        <a href="index.php?orderby=fecha_fin&dir=<?php echo $op_dir ?>"
+                            class="<?php echo $orden == "fecha_fin" ? "filter-active" : ""; ?>">Finalización</a>
+                    </span>
+                    <i
+                        class="<?php echo $dir == "asc" && $orden == "fecha_fin" ? "fa-solid fa-arrow-up" : "fa-solid fa-arrow-down"; ?>"></i>
                 </div>
             </div>
-            <!-- Parte donde se muestran las imágenes -->
+            <!-- Parte donde se muestran las votaciones -->
             <div class="row galeria">
                 <?php
                 // Traemos los modelos necesarios
                 require_once("./models/db.php");
-                require_once("./models/imagen.php");
-                require_once("./models/votos.php");
+                require_once("./models/votacion.php");
                 require_once("./models/usuario.php");
                 require_once("./utils/dates.php");
 
                 $db = new Database();
-                $imagen = new Imagen($db->getConnection());
                 $usuario = new User($db->getConnection());
-                $voto = new Voto($db->getConnection());
-                // Obtenemos un array con todas las imágenes
-                $imagenes = $imagen->getAll($orden, $dir);
-                // Recorremos el array y vamos llenando la galería
-                foreach ($imagenes as $key => $value) {
-                    // Obtenemos el nombre se usuario que subió la imagen
+                $votacion = new Votacion($db->getConnection());
+                // Obtenemos un array con todas las votaciones
+                $votaciones = $votacion->getAll($orden, $dir);
+                // Recorremos el array y vamos llenando el contenido
+                foreach ($votaciones as $key => $value) {
+                    // Obtenemos el nombre se usuario que creó la votación
                     $nombre_usuario = $usuario->getUsername($value["id_usuario"]);
                     // Formateamos el intervalo de tiempo a mostrar (desde la fecha de publicación hasta ahora)
-                    $fechaPublicacion = new DateTime($value["fecha"]);
+                    $fechaPublicacion = new DateTime($value["fecha_creacion"]);
                     $fechaActual = new DateTime("now");
-                    $fecha = format_interval_dates_short($fechaActual, $fechaPublicacion);
-                    // Finalmente mostramos la imagen, nombre de usuario que la subió y número de votos que tiene
+                    $fechaFin = new DateTime($value["fecha_fin"]);
+                    $creadaHace = format_interval_dates_short($fechaActual, $fechaPublicacion);
+                    $finalizaEn = format_interval_dates_short($fechaFin, $fechaActual);
+                    $diferencia = $fechaActual->diff($fechaFin);
+                    // Comprobamos si la votación ya ha finalizado
+                    if ($diferencia->invert != 0) {
+                        $finalizada = true;
+                        $txt = '· Finalizada';
+                    } else {
+                        $finalizada = false;
+                        $txt = "· finaliza en " . $finalizaEn;
+                    }
+                    // Finalmente mostramos la votación, nombre de usuario que la creó y otra información
                     echo '<div class="col-md-6 col-lg-4">
                             <div class="card my-3">
-                                <div class="image-container">
-                                    <img src="' . $value["url_imagen"] . '"
-                                        class="card-img-top" alt="thumbnail">
-                                    <div class="image-overlay"></div>
+                                <div class="vote-container">
+                                    <h3>' . $value["titulo"] . '</h3>
+                                    <p>' . $value["descripcion"] . '</p>
                                 </div>
-                                    <p class="author">' . $nombre_usuario . '<span class="fecha">· subida hace ' . $fecha . '</span></p>
-                                <div class="card-body">
-                                    <p><i class="fa-solid fa-heart like"></i><span class="num-votos">' . $value["num_votos"] . '</span></p>';
-                    // Además, si el usuario está logueado mostraremos el botón de votar.
-                    // En el botón de votar llamaremos a la función votar() que se encuentra en votar.js, debemos pasarle 3 parámetros:
-                    // un id de imagen, un id de usuario y verdadero(votar) o falso(eliminar voto)
-                    if (isset($_SESSION["username"])) {
-                        // Comprobamos si el usuario que está logueado ya ha votado esta imagen
-                        $votada = $voto->checkVote($value["id"], $usuario->getId($_SESSION["username"]));
-                        // Si ya la ha votado le pondremos la clase "btn-like" al botón para cambiar su estilo visual
-                        $clase_boton = $votada ? "btn-like" : "";
-                        // Establecemos el contenido del botón en función de si ya la ha votado o no
-                        $contenido_boton = $votada ? "Votada!" : "Votar";
-                        // Mostramos el botón y le asociamos la función de votar de votar.js
-                        echo '<button onclick="votar(event, ' . $value["id"] . ',' . $usuario->getId($_SESSION["username"]) . ',' . !$votada . ')" class="btn btn-primary ' . $clase_boton . '">
-                                        ' . $contenido_boton . '
-                                    </button>';
-                    }
-                    echo '      </div>
-                            </div>
+                                <div class="pie-votacion">
+                                    <span class="author">' . $nombre_usuario . '</span>
+                                    <span class="fecha-votacion">· creada hace ' . $creadaHace . '</span>
+                                    <span class="fecha-votacion filter-active">' . $txt . '</span>
+                                </div>';
+                            if ($finalizada){
+                                echo '  <div class="card-body d-flex justify-content-center">
+                                            <a href="galeria.php?votacion=' . $value["id"] . '" class="btn btn-primary btn-like">Ver resultados</a>
+                                        </div>';
+                            }else{
+                                echo '  <div class="card-body d-flex justify-content-center">
+                                            <a href="galeria.php?votacion=' . $value["id"] . '" class="btn btn-primary">Participa</a>
+                                        </div>';
+                            }
+                                
+
+                    echo '  </div>
                         </div>';
                 }
                 ?>
@@ -102,12 +114,12 @@ require_once("./layout/header.php");
         </div>
     </section>
 
-    <!-- Botón para subir imágenes, sólo se muestra si hay un usuario logueado -->
+    <!-- Botón para crear votaciones, sólo se muestra si hay un usuario logueado -->
     <?php
     if (isset($_SESSION["username"])) {
         echo "<div class='fab-container'>
             <div class='button iconbutton'>
-              <a href='upload.php'><i class='fa-solid fa-upload'></i></a>
+              <a href='newvoting.php'><i class='fa-solid fa-plus'></i></a>
             </div>
           </div";
     }

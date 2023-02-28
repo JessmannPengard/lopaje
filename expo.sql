@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 25-02-2023 a las 16:47:24
+-- Tiempo de generación: 28-02-2023 a las 02:09:51
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.1.12
 
@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `imagenes` (
   `id` int(11) NOT NULL,
+  `id_votacion` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
   `url_imagen` varchar(255) NOT NULL,
   `fecha` timestamp NOT NULL DEFAULT current_timestamp()
@@ -44,6 +45,22 @@ CREATE TABLE `usuarios` (
   `id` int(11) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `votaciones`
+--
+
+CREATE TABLE `votaciones` (
+  `id` int(11) NOT NULL,
+  `titulo` varchar(255) NOT NULL,
+  `descripcion` varchar(255) NOT NULL,
+  `fecha_inicio` datetime NOT NULL,
+  `fecha_fin` datetime NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 -- --------------------------------------------------------
@@ -75,6 +92,12 @@ ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `votaciones`
+--
+ALTER TABLE `votaciones`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `votos`
 --
 ALTER TABLE `votos`
@@ -94,6 +117,12 @@ ALTER TABLE `imagenes`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `votaciones`
+--
+ALTER TABLE `votaciones`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --

@@ -69,6 +69,7 @@
                         </div>
                         <div class='offcanvas-body'>
                             <a class='btn btn-primary' href='mypictures.php' role='button'><i class='fa-solid fa-images'></i>  Mis imágenes</a>
+                            <a class='btn btn-primary' href='newvoting.php' role='button'><i class='fa-solid fa-square-plus'></i>  Crear votación</a>
                             <a class='btn btn-primary' href='logout.php' role='button'><i class='fa-solid fa-right-from-bracket'></i>  Logout</a>
                         </div>";
                 } else {

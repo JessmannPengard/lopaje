@@ -6,9 +6,11 @@ require_once("./models/imagen.php");
 
 // Iniciamos sesión y comprobamos si el usuario está logueado, en caso contrario lo redirigimos al index.php
 session_start();
-if (!isset($_SESSION["username"])) {
+if (!isset($_SESSION["username"]) || !isset($_GET["votacion"])) {
     header("Location: login.php");
 }
+
+$votacion = $_GET["votacion"];
 
 // Establecemos la ruta en la que guardamos las imágenes subidas por los usuarios
 $directorio_subida = 'upload/';
@@ -38,7 +40,7 @@ if (isset($_POST["file"])) {
                     $usuario = new User($db->getConnection());
                     $imagen = new Imagen($db->getConnection());
                     // Y los guardamos en la base de datos junto con la ruta del archivo que se acaba de subir
-                    $imagen->upload($usuario->getId($_SESSION["username"]), $directorio_subida . $nombre_archivo);
+                    $imagen->upload($usuario->getId($_SESSION["username"]), $votacion, $directorio_subida . $nombre_archivo);
                     // Finalmente redirigimos al index.php
                     header("Location: index.php");
                 } else {

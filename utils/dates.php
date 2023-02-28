@@ -6,7 +6,6 @@ function format_interval_dates_short($dateFrom, $dateTo)
 {
     $interval = $dateFrom->diff($dateTo);
 
-    $result = "";
     if ($interval->y) {
         return $interval->format("%yY");
     }
