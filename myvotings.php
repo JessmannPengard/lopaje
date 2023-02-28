@@ -87,7 +87,7 @@ require_once("./layout/header.php");
                                     <h5 class="card-title">' . $value["titulo"] . '</h5>
                                     <p class="card-text">' . $value["descripcion"] . '</p>
                                     <p class="fecha">' . $txt . '</p>
-                                    <a href="galeria.php?votacion='.$value["id"].'"><p class="text-center">>></p></a>
+                                    <a href="galeria.php?votacion=' . $value["id"] . '"><p class="text-center">>></p></a>
                                 </div>
                                 <div class="card-footer text-muted text-center">
                                     creada hace ' . $creadaHace . '
@@ -103,7 +103,16 @@ require_once("./layout/header.php");
 
 </div>
 
-</div>
+<!-- Botón para crear votaciones, sólo se muestra si hay un usuario logueado -->
+<?php
+if (isset($_SESSION["username"])) {
+    echo "<div class='fab-container'>
+            <div class='button iconbutton'>
+              <a href='newvoting.php'><i class='fa-solid fa-plus'></i></a>
+            </div>
+          </div";
+}
+?>
 
 
 <!-- Pie de página -->
