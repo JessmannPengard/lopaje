@@ -67,4 +67,12 @@ class Imagen
         $stm->bindValue(":url_image", $url_image);
         $stm->execute();
     }
+
+    // Elimina una imagen
+    public function deleteById($id_imagen)
+    {
+        $stm = $this->dbconn->prepare("DELETE FROM votacion WHERE id=:id");
+        $stm->bindValue(":id", $id_imagen);
+        $stm->execute();
+    }
 }
