@@ -18,11 +18,7 @@ require_once("./layout/header.php");
     <!-- Mensaje que se muestra cuando no hay un usuario logueado -->
     <?php
     if (!isset($_SESSION["username"])) {
-        echo "
-                    <p class='login-message'>
-                        <a href='login.php' class='a-session'>Accede</a> o 
-                        <a href='register.php' class='a-session'>Regístrate</a> para poder votar o subir tus imágenes.
-                    </p>";
+        header("Location: index.php");
     }
     ?>
 
@@ -51,11 +47,15 @@ require_once("./layout/header.php");
                 require_once("./models/votos.php");
                 require_once("./models/usuario.php");
                 require_once("./utils/dates.php");
+                require_once("./models/votacion.php");
+                
 
                 $db = new Database();
                 $imagen = new Imagen($db->getConnection());
                 $usuario = new User($db->getConnection());
                 $voto = new Voto($db->getConnection());
+                $votacion=new Votacion($db->getConnection());
+
                 $id_user = $usuario->getId($_SESSION["username"]);
                 // Obtenemos un array con todas las imágenes
                 $imagenes = $imagen->getById_User($id_user, $orden, $dir);
@@ -67,6 +67,7 @@ require_once("./layout/header.php");
                     $fechaPublicacion = new DateTime($value["fecha"]);
                     $fechaActual = new DateTime("now");
                     $fecha = format_interval_dates_short($fechaActual, $fechaPublicacion);
+                    $vot=$votacion->getById($value["id_votacion"]);
                     // Finalmente mostramos la imagen, nombre de usuario que la subió y número de votos que tiene
                     echo '<div class="col-md-6 col-lg-4">
                             <div class="card my-3">
@@ -77,6 +78,7 @@ require_once("./layout/header.php");
                                 </div>
                                     <div class="card-body">
                                         <div>
+                                        <h5><a href="galeria.php?votacion='.$value["id_votacion"].'">'. $vot["titulo"].'</a></h5>
                                             <i class="fa-solid fa-heart like"></i>
                                             <span class="num-votos">' . $value["num_votos"] . '</span>
                                         </div>
