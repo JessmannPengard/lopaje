@@ -48,7 +48,6 @@ require_once("./layout/header.php");
                 require_once("./models/usuario.php");
                 require_once("./utils/dates.php");
                 require_once("./models/votacion.php");
-                
 
                 $db = new Database();
                 $imagen = new Imagen($db->getConnection());
