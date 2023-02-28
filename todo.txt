@@ -17,6 +17,7 @@ XXX·Newvoting.php:
     -Arreglar el escalado de las imágenes.
 
 ·Upload.php:
+    -Al subir redirigir a la votación y no al index.
     -Mostrar los datos de la votación a la que vamos a subir la imagen.
     -Comprobar antes de subir que la votación no haya finalizado.
     -Comprobar al cargar la página que la votación no haya finalizado, en ese caso mostrar un mensaje y enlace al index.php.
