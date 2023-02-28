@@ -77,36 +77,43 @@ require_once("./layout/header.php");
                     // Comprobamos si la votación ya ha finalizado
                     if ($diferencia->invert != 0) {
                         $finalizada = true;
-                        $txt = '· Finalizada';
+                        $txt = "Finalizada";
+                        $borde = "border-danger";
+                        $color="filter-active";
                     } else {
                         $finalizada = false;
-                        $txt = "· finaliza en " . $finalizaEn;
+                        $txt = "finaliza en " . $finalizaEn;
+                        $borde = "border-success";
+                        $color="";
                     }
-                    // Finalmente mostramos la votación, nombre de usuario que la creó y otra información
+                    // Finalmente mostramos la votación, nombre de usuario que la creó y resto de información
                     echo '<div class="col-md-6 col-lg-4">
-                            <div class="card my-3">
-                                <div class="vote-container">
-                                    <h3>' . $value["titulo"] . '</h3>
-                                    <p>' . $value["descripcion"] . '</p>
+                            <div class="card ' . $borde . '">
+                                <div class="card-header text-center ' . $color . '">
+                                    ' . $txt . '
                                 </div>
-                                <div class="pie-votacion">
-                                    <span class="author">' . $nombre_usuario . '</span>
-                                    <span class="fecha-votacion">· creada hace ' . $creadaHace . '</span>
-                                    <span class="fecha-votacion filter-active">' . $txt . '</span>
-                                </div>';
-                            if ($finalizada){
-                                echo '  <div class="card-body d-flex justify-content-center">
-                                            <a href="galeria.php?votacion=' . $value["id"] . '" class="btn btn-primary btn-like">Ver resultados</a>
-                                        </div>';
-                            }else{
-                                echo '  <div class="card-body d-flex justify-content-center">
-                                            <a href="galeria.php?votacion=' . $value["id"] . '" class="btn btn-primary">Participa</a>
-                                        </div>';
-                            }
-                                
+                                <div class="card-body vote-container">
+                                    <h5 class="card-title">' . $value["titulo"] . '</h5>
+                                    <p class="card-text">' . $value["descripcion"] . '</p>
+                                    <span class="author">' . $nombre_usuario . '</span>';
 
-                    echo '  </div>
+                    // Ponemos el botón en función de si ha finalizado o no
+                    if ($finalizada) {
+                        echo '  <div class="card-body d-flex justify-content-center">
+                                                    <a href="galeria.php?votacion=' . $value["id"] . '" class="btn btn-primary btn-like">Ver resultados</a>
+                                                </div>';
+                    } else {
+                        echo '  <div class="card-body d-flex justify-content-center">
+                                                    <a href="galeria.php?votacion=' . $value["id"] . '" class="btn btn-primary">Participa</a>
+                                                </div>';
+                    }
+                    echo '      </div>
+                                <div class="card-footer text-muted text-center">
+                                    creada hace ' . $creadaHace . '
+                                </div>
+                            </div>
                         </div>';
+
                 }
                 ?>
 

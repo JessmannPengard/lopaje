@@ -1,0 +1,44 @@
+·Mypictures.php:
+    -Añadir álbum al que fue subida y que enlace a dicho álbum.
+    -Opción de eliminar fotos (sólo si la votación no ha finalizado y la foto no ha sido votada).
+
+XXX·Newvoting.php:
+    XXX-Comprobar que la fecha de inicio sea posterior a la fecha actual y que la fecha de finalización sea mayor a la fecha de inicio.
+
+·Menú:
+    -Cambiar 'Crear votación' por Mis votaciones.
+
+·Crear vista de Mis votaciones (myvotings.php):
+    -Ver mis votaciones.
+    -Opción de eliminar mis votaciones (sólo si no ha finalizado y/o no tiene ninguna imagen subida).
+
+·Galería.php:
+    -Mostrar primero el top 3, y a continuación la galería normal.
+    -Arreglar el escalado de las imágenes.
+
+·Upload.php:
+    -Mostrar los datos de la votación a la que vamos a subir la imagen.
+    -Comprobar antes de subir que la votación no haya finalizado.
+    -Comprobar al cargar la página que la votación no haya finalizado, en ese caso mostrar un mensaje y enlace al index.php.
+
+·Index.php:
+    -Opción de ocultar las finalizadas?
+
+XXX·Index.php, galeria.php:
+    XXX-Botón flotante para volver al inicio de la página.
+
+·Posibles mejoras estéticas (a convenir).
+
+
+IMPORTANTE!!!
+·Testeo intensivo de todas las funcionalidades buscando posibles errores o inconsistencias.
+
+
+--- Final---
+
+·Rellenar con datos de muestra para la presentación:
+    -Crear 9 usuarios (3 por miembro del equipo).
+    -Crear 6 votaciones que aparenten reales para mejor impresión en la presentación.
+    -Debemos tener 2 votaciones que hayan finalizado para que se aprecie la diferencia en la presentación.
+    -Rellenar con imágenes subidas usando los distintos usuarios creados. Las imágenes deben tener buen aspecto y tener relación con el tema de la votación.
+    -Votar con los distintos usuarios en las distintas votaciones (para las finalizadas debemos votarlas antes de que finalicen).
