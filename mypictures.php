@@ -80,7 +80,7 @@ require_once("./layout/header.php");
                                             <i class="fa-solid fa-heart like"></i>
                                             <span class="num-votos">' . $value["num_votos"] . '</span>
                                         </div>
-                                        <span class="fecha">· subida hace ' . $fecha . '</span>
+                                        <span class="fecha">subida hace ' . $fecha . '</span>
                                     </div>
                             </div>
                         </div>';
@@ -90,17 +90,6 @@ require_once("./layout/header.php");
             </div>
         </div>
     </section>
-
-    <!-- Botón para subir imágenes, sólo se muestra si hay un usuario logueado -->
-    <?php
-    if (isset($_SESSION["username"])) {
-        echo "<div class='fab-container'>
-            <div class='button iconbutton'>
-              <a href='upload.php'><i class='fa-solid fa-upload'></i></a>
-            </div>
-          </div";
-    }
-    ?>
 
 </div>
 

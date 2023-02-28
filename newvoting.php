@@ -61,26 +61,29 @@ require_once("./layout/header.php");
                 </div>
                 <div class="form-group">
                     <label for="descripcion" class="form-label">Descripción</label>
-                    <textarea name="descripcion" maxlength="255" class="form-control" rows="6" resize="none" required placeholder="Descripción"></textarea>
+                    <textarea name="descripcion" maxlength="255" class="form-control" rows="6" resize="none" required
+                        placeholder="Descripción"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="fecha_inicio" class="form-label">Fecha de inicio</label>
-                    <input type="date" name="fecha_inicio" class="form-control" required>
+                    <input type="date" name="fecha_inicio" id="fecha-inicio" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label for="fecha_fin" class="form-label">Fecha de finalización</label>
-                    <input type="date" name="fecha_fin" class="form-control" required>
+                    <input type="date" name="fecha_fin" id="fecha-fin" class="form-control" required>
                 </div>
                 <!-- Mostramos el mensaje de error, si lo hubiera, si no estaría vacío "" -->
                 <div class="form-group">
                     <p class="error-text" id="error"></p>
                 </div>
-                <button type="submit" value="" class="btn btn-primary">Crear</button>
+                <button type="submit" onclick="validarFechas(event)" value="" class="btn btn-primary">Crear</button>
                 <a href="index.php"><button type="button" class="btn btn-primary btn-like">Cancelar</button></a>
             </form>
         </div>
     </div>
 </div>
+
+<script src="js/newvoting.js"></script>
 
 <!-- Pie de página -->
 <?php

@@ -38,14 +38,18 @@ require_once("./layout/header.php");
     // Traemos los modelos necesarios
     require_once("./models/db.php");
     require_once("./models/votacion.php");
+    require_once("./models/usuario.php");
 
     // Conectamos con la base de datos
     $db = new Database();
 
-    // Obtenemos el título de la votación seleccionada
+    // Obtenemos lod datos de la votación seleccionada
     $v = new Votacion($db->getConnection());
     $votacionActual = $v->getById($votacion);
     $titulo = $votacionActual["titulo"];
+    $descripcion = $votacionActual["descripcion"];
+    $u = new User($db->getConnection());
+    $creador = $u->getUsername($votacionActual["id_usuario"]);
 
     // Comprobamos si la votación ya ha finalizado
     $fechaActual = new DateTime("now");
@@ -64,10 +68,19 @@ require_once("./layout/header.php");
     <section class="bg-light">
         <div class="container">
             <div class="head-gallery">
-                <!-- Título de la galería -->
-                <h2>
-                    <?php echo $titulo ?>
-                </h2>
+                <div class="head-gallery-left">
+                    <!-- Título de la galería -->
+                    <h2>
+                        <?php echo $titulo ?>
+                    </h2>
+                    <!-- Descripción de la galería -->
+                    <p>
+                        <?php echo $descripcion ?>
+                    </p>
+                    <span class="fecha">
+                        creada por <?php echo $creador ?>
+                    </span>
+                </div>
                 <!-- Opciones para ordenar la galería -->
                 <div class="orderby">
                     <span><a href="galeria.php?votacion=<?php echo $votacion ?>&orderby=fecha&dir=<?php echo $op_dir ?>"
@@ -85,7 +98,6 @@ require_once("./layout/header.php");
                 
                 require_once("./models/imagen.php");
                 require_once("./models/votos.php");
-                require_once("./models/usuario.php");
                 require_once("./utils/dates.php");
 
                 $imagen = new Imagen($db->getConnection());
@@ -137,9 +149,9 @@ require_once("./layout/header.php");
         </div>
     </section>
 
-    <!-- Botón para subir imágenes, sólo se muestra si hay un usuario logueado -->
+    <!-- Botón para subir imágenes, sólo se muestra si hay un usuario logueado y la votación no ha finalizado-->
     <?php
-    if (isset($_SESSION["username"])) {
+    if (isset($_SESSION["username"]) && !$finalizada) {
         echo "<div class='fab-container'>
             <div class='button iconbutton'>
               <a href='upload.php?votacion=" . $votacion . "'><i class='fa-solid fa-upload'></i></a>

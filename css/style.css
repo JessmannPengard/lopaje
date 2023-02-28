@@ -5,7 +5,7 @@
     transition: background-color .5s ease-in-out;
 }
 
-#footer-text{
+#footer-text {
     color: white;
 }
 
@@ -24,7 +24,7 @@
     padding-top: 10px;
 }
 
-.user-icon{
+.user-icon {
     color: #C64E52;
     padding-right: 5px;
 }
@@ -160,6 +160,27 @@
     transition: 0.7s;
 }
 
+/* Botón de scroll al inicio de página */
+#scroll-top-button {
+    display: none;
+    position: fixed;
+    bottom: 55px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 50%;
+  }
+  
+  #scroll-top-button:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+
 /* Votaciones */
 .vote-container {
     position: relative;
@@ -167,7 +188,7 @@
     padding: 10px;
 }
 
-.pie-votacion{
+.pie-votacion {
     text-align: right;
     padding-right: 10px;
     padding-bottom: 5px;
@@ -205,6 +226,11 @@
     background: rgba(0, 0, 0, 0.5) url('../img/lupa.png') no-repeat center;
     background-size: 64px 64px;
     background-position: center center;
+}
+
+.head-gallery-left {
+    display: flex;
+    flex-direction: column;
 }
 
 /* Lightbox */
