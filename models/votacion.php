@@ -28,8 +28,18 @@ class Votacion
         return $stm->fetch();
     }
 
+    // Obtiene la votación a partir del id de usuario
+    public function getByIdUser($id_usuario, $orderby, $dir)
+    {
+        $stm = $this->dbconn->prepare("SELECT * FROM votaciones WHERE id_usuario=:id
+                                        ORDER BY " . $orderby . " " . $dir);
+        $stm->bindValue(":id", $id_usuario);
+        $stm->execute();
+        return $stm->fetchAll();
+    }
+
     // Crea una nueva votación
-    public function new ($titulo, $descripcion, $fechaInicio, $fechaFin, $id_usuario)
+    public function new($titulo, $descripcion, $fechaInicio, $fechaFin, $id_usuario)
     {
         $stm = $this->dbconn->prepare("INSERT INTO votaciones (titulo, descripcion, fecha_inicio, fecha_fin, id_usuario) 
                                     VALUES (:titulo, :descripcion, :fecha_inicio, :fecha_fin, :id_usuario)");

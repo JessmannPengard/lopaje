@@ -3,6 +3,7 @@
 require_once("./models/db.php");
 require_once("./models/usuario.php");
 require_once("./models/imagen.php");
+require_once("./models/votacion.php");
 
 // Iniciamos sesión y comprobamos si el usuario está logueado, en caso contrario lo redirigimos al index.php
 session_start();
@@ -10,7 +11,24 @@ if (!isset($_SESSION["username"]) || !isset($_GET["votacion"])) {
     header("Location: login.php");
 }
 
+// Obtener datos de la votación
 $votacion = $_GET["votacion"];
+
+$db = new Database();
+$v = new Votacion($db->getConnection());
+$datosVotacion = $v->getById($votacion);
+$titulo = $datosVotacion["titulo"];
+$descripcion = $datosVotacion["descripcion"];
+
+// Comprobamos que la votación no haya finalizado
+$fechaActual = new DateTime("now");
+$fechaFin = new DateTime($datosVotacion["fecha_fin"]);
+$diferencia = $fechaActual->diff($fechaFin);
+if ($diferencia->invert != 0) {
+    // Finalizada
+    header("Location: galeria.php?votacion=" . $votacion);
+}
+
 
 // Establecemos la ruta en la que guardamos las imágenes subidas por los usuarios
 $directorio_subida = 'upload/';
@@ -33,16 +51,13 @@ if (isset($_POST["file"])) {
                 // Movemos el archivo a la carpeta de destino que hemos designado ($directorio_subida) con el nuevo nombre de archivo
                 if (move_uploaded_file($_FILES['imagen']['tmp_name'], $directorio_subida . $nombre_archivo)) {
                     // El archivo se subió correctamente
-                    // Guardamos en la base de datos la información de la imagen
-                    // Creamos la conexión
-                    $db = new Database();
                     // Obtenemos los id's de usuario e imagen
                     $usuario = new User($db->getConnection());
                     $imagen = new Imagen($db->getConnection());
                     // Y los guardamos en la base de datos junto con la ruta del archivo que se acaba de subir
                     $imagen->upload($usuario->getId($_SESSION["username"]), $votacion, $directorio_subida . $nombre_archivo);
-                    // Finalmente redirigimos al index.php
-                    header("Location: index.php");
+                    // Finalmente redirigimos al concurso: galeria.php
+                    header("Location: galeria.php?votacion=" . $votacion);
                 } else {
                     // Error al mover el archivo
                     $msg = "Hubo un error al mover el archivo";
@@ -73,19 +88,20 @@ require_once("./layout/header.php");
         <div class="col-md-6 mx-auto">
             <!-- Título del formulario -->
             <h2>Sube tu imagen</h2>
+            <hr>
+            <h4> <?php echo $titulo ?> </h4>
+            <p> <?php echo $descripcion ?> </p>
+            <hr>
             <div>
                 <p>PNG o JPEG, tamaño máximo permitido: 5MB</p>
-                <hr>
             </div>
             <div class="form-group d-none" id="previsualizarImg">
-                <img id="previsualizacion" src="#" alt="Previsualización de la imagen"
-                    style="max-width: 100%; height: auto;">
+                <img id="previsualizacion" src="#" alt="Previsualización de la imagen" style="max-width: 100%; height: auto;">
             </div>
             <form id="formulario" method="post" enctype="multipart/form-data">
                 <div class="form-group">
 
-                    <input type="file" class="form-control-file" id="imagen" name="imagen"
-                        accept="image/png, image/jpeg">
+                    <input type="file" class="form-control-file" id="imagen" name="imagen" accept="image/png, image/jpeg">
                 </div>
 
                 <!-- Mensaje de error si lo hubiese -->

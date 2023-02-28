@@ -5,22 +5,21 @@
 XXX·Newvoting.php:
     XXX-Comprobar que la fecha de inicio sea posterior a la fecha actual y que la fecha de finalización sea mayor a la fecha de inicio.
 
-·Menú:
-    -Cambiar 'Crear votación' por Mis votaciones.
+XXX·Menú:
+    XXX-Cambiar 'Crear votación' por Mis votaciones.
 
 ·Crear vista de Mis votaciones (myvotings.php):
-    -Ver mis votaciones.
+    XXX-Ver mis votaciones.
     -Opción de eliminar mis votaciones (sólo si no ha finalizado y/o no tiene ninguna imagen subida).
 
 ·Galería.php:
     -Mostrar primero el top 3, y a continuación la galería normal.
     -Arreglar el escalado de las imágenes.
 
-·Upload.php:
-    -Al subir redirigir a la votación y no al index.
-    -Mostrar los datos de la votación a la que vamos a subir la imagen.
-    -Comprobar antes de subir que la votación no haya finalizado.
-    -Comprobar al cargar la página que la votación no haya finalizado, en ese caso mostrar un mensaje y enlace al index.php.
+XXX·Upload.php:
+    XXX-Al subir redirigir a la votación y no al index.
+    XXX-Mostrar los datos de la votación a la que vamos a subir la imagen.
+    XXX-Comprobar al cargar la página que la votación no haya finalizado, en ese caso mostrar un mensaje y enlace al index.php.
 
 ·Index.php:
     -Opción de ocultar las finalizadas?
