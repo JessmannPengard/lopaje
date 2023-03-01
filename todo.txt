@@ -1,5 +1,5 @@
 ·Mypictures.php:
-    -Añadir álbum al que fue subida y que enlace a dicho álbum.
+    XXX-Añadir álbum al que fue subida y que enlace a dicho álbum.
     -Opción de eliminar fotos (sólo si la votación no ha finalizado y la foto no ha sido votada).
 
 XXX·Newvoting.php:
