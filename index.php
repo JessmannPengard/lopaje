@@ -136,9 +136,6 @@ require_once("./layout/header.php");
 
 </div>
 
-<!-- Script para la galería -->
-<script src="js/index.js"></script>
-
 <!-- Pie de página -->
 <?php
 require_once("./layout/footer.php");
