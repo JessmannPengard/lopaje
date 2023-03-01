@@ -41,6 +41,7 @@
                     aria-controls="offcanvasWithBothOptions">
                     <i class="fa-solid fa-bars fa-xl"></i>
                 </a>
+                <a href="index.php" id="link-home"><i class="fa-solid fa-house"></i></a>
             </div>
 
             <!-- Logo -->
