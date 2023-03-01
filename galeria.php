@@ -83,19 +83,15 @@ require_once("./layout/header.php");
                 </div>
                 <!-- Opciones para ordenar la galería -->
                 <div class="orderby">
-                    <span><a href="galeria.php?votacion=<?php echo $votacion ?>&orderby=fecha&dir=<?php echo $op_dir ?>"
-                            class="<?php echo $orden == "fecha" ? "filter-active" : ""; ?>">Recientes</a></span><i
-                        class="<?php echo $dir == "asc" && $orden == "fecha" ? "fa-solid fa-arrow-up" : "fa-solid fa-arrow-down"; ?>"></i>
-                    <span><a href="galeria.php?votacion=<?php echo $votacion ?>&orderby=num_votos&dir=<?php echo $op_dir ?>"
-                            class="<?php echo $orden == "num_votos" ? "filter-active" : ""; ?>">Votos</a></span><i
-                        class="<?php echo $dir == "asc" && $orden == "num_votos" ? "fa-solid fa-arrow-up" : "fa-solid fa-arrow-down"; ?>"></i>
+                    <span><a href="galeria.php?votacion=<?php echo $votacion ?>&orderby=fecha&dir=<?php echo $op_dir ?>" class="<?php echo $orden == "fecha" ? "filter-active" : ""; ?>">Recientes</a></span><i class="<?php echo $dir == "asc" && $orden == "fecha" ? "fa-solid fa-arrow-up" : "fa-solid fa-arrow-down"; ?>"></i>
+                    <span><a href="galeria.php?votacion=<?php echo $votacion ?>&orderby=num_votos&dir=<?php echo $op_dir ?>" class="<?php echo $orden == "num_votos" ? "filter-active" : ""; ?>">Votos</a></span><i class="<?php echo $dir == "asc" && $orden == "num_votos" ? "fa-solid fa-arrow-up" : "fa-solid fa-arrow-down"; ?>"></i>
                 </div>
             </div>
             <!-- Parte donde se muestran las imágenes -->
             <div class="row galeria">
                 <?php
                 // Traemos los modelos necesarios
-                
+
                 require_once("./models/imagen.php");
                 require_once("./models/votos.php");
                 require_once("./utils/dates.php");
@@ -129,13 +125,14 @@ require_once("./layout/header.php");
                     // un id de imagen, un id de usuario y verdadero(votar) o falso(eliminar voto)
                     if (isset($_SESSION["username"]) && !$finalizada) {
                         // Comprobamos si el usuario que está logueado ya ha votado esta imagen
-                        $votada = $voto->checkVote($value["id"], $usuario->getId($_SESSION["username"]));
+                        $votada = $voto->checkVote($value["id"], $usuario->getId($_SESSION["username"])) ? 1 : 0;
+                        $pr = $votada == 1 ? 0 : 1;
                         // Si ya la ha votado le pondremos la clase "btn-like" al botón para cambiar su estilo visual
                         $clase_boton = $votada ? "btn-like" : "";
                         // Establecemos el contenido del botón en función de si ya la ha votado o no
                         $contenido_boton = $votada ? "Votada!" : "Votar";
                         // Mostramos el botón y le asociamos la función de votar de votar.js
-                        echo '<button onclick="votar(event, ' . $value["id"] . ',' . $usuario->getId($_SESSION["username"]) . ',' . !$votada . ')" class="btn btn-primary ' . $clase_boton . '">
+                        echo '<button onclick="votar(event, ' . $value["id"] . ',' . $usuario->getId($_SESSION["username"]) . ',' . $pr . ')" class="btn btn-primary ' . $clase_boton . '">
                                         ' . $contenido_boton . '
                                     </button>';
                     }

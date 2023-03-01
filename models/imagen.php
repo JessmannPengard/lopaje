@@ -41,6 +41,15 @@ class Imagen
         return $stm->fetchAll();
     }
 
+    // Obtiene una imagen por su Id
+    public function getById($id_imagen)
+    {
+        $stm = $this->dbconn->prepare("SELECT * FROM imagenes WHERE id = :id");
+        $stm->bindValue(":id", $id_imagen);
+        $stm->execute();
+        return $stm->fetch();
+    }
+
     // Obtiene todas las imágenes subidas por el usuario especificado $id_user
     // ordenadas según los parámetros $orderby ("fecha" o "votos")
     // en el orden especificado $dir ("asc" o "desc")
