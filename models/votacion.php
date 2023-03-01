@@ -39,15 +39,16 @@ class Votacion
     }
 
     // Crea una nueva votación
-    public function new($titulo, $descripcion, $fechaInicio, $fechaFin, $id_usuario)
+    public function new($titulo, $descripcion, $fechaInicio, $fechaFin, $id_usuario, $url)
     {
-        $stm = $this->dbconn->prepare("INSERT INTO votaciones (titulo, descripcion, fecha_inicio, fecha_fin, id_usuario) 
-                                    VALUES (:titulo, :descripcion, :fecha_inicio, :fecha_fin, :id_usuario)");
+        $stm = $this->dbconn->prepare("INSERT INTO votaciones (titulo, descripcion, fecha_inicio, fecha_fin, id_usuario, url) 
+                                    VALUES (:titulo, :descripcion, :fecha_inicio, :fecha_fin, :id_usuario, :url)");
         $stm->bindValue(":titulo", $titulo);
         $stm->bindValue(":descripcion", $descripcion);
         $stm->bindValue(":fecha_inicio", $fechaInicio);
         $stm->bindValue(":fecha_fin", $fechaFin);
         $stm->bindValue(":id_usuario", $id_usuario);
+        $stm->bindValue(":url", $url);
         $stm->execute();
 
         // Creada con éxito

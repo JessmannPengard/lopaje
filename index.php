@@ -87,33 +87,34 @@ require_once("./layout/header.php");
                         $color="";
                     }
                     // Finalmente mostramos la votación, nombre de usuario que la creó y resto de información
-                    echo '<div class="col-md-6 col-lg-4">
-                            <div class="card ' . $borde . '">
-                                <div class="card-header text-center ' . $color . '">
-                                    ' . $txt . '
-                                </div>
-                                <div class="card-body vote-container">
-                                    <h5 class="card-title">' . $value["titulo"] . '</h5>
-                                    <p class="card-text">' . $value["descripcion"] . '</p>
-                                    <span class="author">' . $nombre_usuario . '</span>';
 
-                    // Ponemos el botón en función de si ha finalizado o no
-                    if ($finalizada) {
-                        echo '  <div class="card-body d-flex justify-content-center">
+                    echo '  <div class="col-md-6 col-lg-4">
+                                <div class="card my-3 ' . $borde . '">
+                                    <div>
+                                        <img src="' . $value["url"] . '" alt="" class="card-img-top">
+                                        <div class="texto-encima">
+                                            <h5 class="card-title">' . $value["titulo"] . '</h5>
+                                        </div>
+                                        <div class="contenedor-inferior">';
+                                    // Ponemos el botón en función de si ha finalizado o no
+                                    if ($finalizada) {
+                                        echo '  <div class="card-body d-flex justify-content-center">
                                                     <a href="galeria.php?votacion=' . $value["id"] . '" class="btn btn-primary btn-like">Ver resultados</a>
                                                 </div>';
-                    } else {
-                        echo '  <div class="card-body d-flex justify-content-center">
+                                    } else {
+                                        echo '  <div class="card-body d-flex justify-content-center">
                                                     <a href="galeria.php?votacion=' . $value["id"] . '" class="btn btn-primary">Participa</a>
                                                 </div>';
-                    }
-                    echo '      </div>
-                                <div class="card-footer text-muted text-center">
-                                    creada hace ' . $creadaHace . '
+                                    }
+                                        echo'   <div class="texto-inferior">
+                                                    <span class="fecha">creada hace ' . $creadaHace . '</span>
+                                                    <span>' . $nombre_usuario . '</span>
+                                                    <span class="fecha ' . $color . '">' . $txt . '</span>
+                                                </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>';
-
+                            </div>';
                 }
                 ?>
 

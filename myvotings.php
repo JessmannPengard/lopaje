@@ -31,13 +31,17 @@ require_once("./layout/header.php");
                 <!-- Opciones para ordenar las votaciones -->
                 <div class="orderby">
                     <span>
-                        <a href="myvotings.php?orderby=fecha_creacion&dir=<?php echo $op_dir ?>" class="<?php echo $orden == "fecha_creacion" ? "filter-active" : ""; ?>">Recientes</a>
+                        <a href="myvotings.php?orderby=fecha_creacion&dir=<?php echo $op_dir ?>"
+                            class="<?php echo $orden == "fecha_creacion" ? "filter-active" : ""; ?>">Recientes</a>
                     </span>
-                    <i class="<?php echo $dir == "asc" && $orden == "fecha_creacion" ? "fa-solid fa-arrow-up" : "fa-solid fa-arrow-down"; ?>"></i>
+                    <i
+                        class="<?php echo $dir == "asc" && $orden == "fecha_creacion" ? "fa-solid fa-arrow-up" : "fa-solid fa-arrow-down"; ?>"></i>
                     <span>
-                        <a href="myvotings.php?orderby=fecha_fin&dir=<?php echo $op_dir ?>" class="<?php echo $orden == "fecha_fin" ? "filter-active" : ""; ?>">Finalización</a>
+                        <a href="myvotings.php?orderby=fecha_fin&dir=<?php echo $op_dir ?>"
+                            class="<?php echo $orden == "fecha_fin" ? "filter-active" : ""; ?>">Finalización</a>
                     </span>
-                    <i class="<?php echo $dir == "asc" && $orden == "fecha_fin" ? "fa-solid fa-arrow-up" : "fa-solid fa-arrow-down"; ?>"></i>
+                    <i
+                        class="<?php echo $dir == "asc" && $orden == "fecha_fin" ? "fa-solid fa-arrow-up" : "fa-solid fa-arrow-down"; ?>"></i>
                 </div>
             </div>
             <!-- Parte donde se muestran las votaciones -->
@@ -74,24 +78,26 @@ require_once("./layout/header.php");
                     } else {
                         $finalizada = false;
                         $txt = "finaliza en " . $finalizaEn;
-                        $borde = "border-success";
+                        $borde = "border-none";
                         $color = "";
                     }
                     // Finalmente mostramos la votación
                     echo '<div class="col-md-6 col-lg-4">
-                            <div class="card ' . $borde . '">
-                                <div class="card-header text-center ' . $color . '">
-                                    ' . $txt . '
+                            <div class="card my-3 ' . $borde . '">
+                                <a href="galeria.php?votacion=' . $value["id"] . '">
+                                <div>
+                                    <img src="' . $value["url"] . '" alt="" class="card-img-top">
+                                    <div class="texto-encima">
+                                        <h5 class="card-title">' . $value["titulo"] . '</h5>
+                                    </div>
+                                    <div class="contenedor-inferior">
+                                        <div class="texto-inferior">
+                                            <span class="fecha">creada hace ' . $creadaHace . '</span>
+                                            <span class="fecha ' . $color . '">' . $txt . '</span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="card-body vote-container">
-                                    <h5 class="card-title">' . $value["titulo"] . '</h5>
-                                    <p class="card-text">' . $value["descripcion"] . '</p>
-                                    <p class="fecha">' . $txt . '</p>
-                                    <a href="galeria.php?votacion=' . $value["id"] . '"><p class="text-center">>></p></a>
-                                </div>
-                                <div class="card-footer text-muted text-center">
-                                    creada hace ' . $creadaHace . '
-                                </div>
+                                </a>
                             </div>
                         </div>';
                 }

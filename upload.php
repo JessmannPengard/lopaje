@@ -100,7 +100,6 @@ require_once("./layout/header.php");
             </div>
             <form id="formulario" method="post" enctype="multipart/form-data">
                 <div class="form-group">
-
                     <input type="file" class="form-control-file" id="imagen" name="imagen" accept="image/png, image/jpeg">
                 </div>
 
