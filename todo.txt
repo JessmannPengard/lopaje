@@ -27,6 +27,8 @@ XXX·Upload.php:
 XXX·Index.php, galeria.php:
     XXX-Botón flotante para volver al inicio de la página.
 
+·Reestructuración de menús?
+
 ·Posibles mejoras estéticas (a convenir).
 
 
