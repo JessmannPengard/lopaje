@@ -61,7 +61,7 @@ require_once("./layout/header.php");
                 </div>
                 <!-- Mostramos el mensaje de error, si lo hubiera, si no estaría vacío "" -->
                 <div class="form-group">
-                    <p class="error-text" id="error"></p>
+                    <p class="error-text" id="error"> <?php echo $msg; ?></p>
                 </div>
                     <button type="submit" value="Login" class="btn btn-primary">Registrar</button>
                 <!-- Enlace a la página de inicio de sesión -->
