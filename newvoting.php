@@ -105,7 +105,8 @@ require_once("./layout/header.php");
                     <input type="date" name="fecha_fin" id="fecha-fin" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <label for="imagen" class="form-label">Imagen</label><br>
+                    <label for="imagen" class="form-label">Imagen</label>
+                    <p>PNG o JPEG, tamaño máximo permitido: 5MB</p>
                     <input type="file" class="form-control-file" id="imagen" name="imagen"
                         accept="image/png, image/jpeg" required>
                 </div>
